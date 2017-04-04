@@ -20,11 +20,13 @@ func main() {
 	in, err := ioutil.ReadAll(os.Stdin)
 	check(err)
 
-	decoded, err := decoder.Decode(in)
-	check(err)
+	if len(in) > 0 {
+		decoded, err := decoder.Decode(in)
+		check(err)
 
-	rec := decoded.(*avro.GenericRecord)
-	fmt.Println(rec)
+		rec := decoded.(*avro.GenericRecord)
+		fmt.Println(rec)
+	}
 }
 
 func check(err error) {

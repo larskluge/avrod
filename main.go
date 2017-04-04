@@ -20,6 +20,8 @@ func main() {
 	in, err := ioutil.ReadAll(os.Stdin)
 	check(err)
 
+	fmt.Fprintln(os.Stderr, "bytes:", len(in))
+
 	if len(in) > 0 {
 		decoded, err := decoder.Decode(in)
 		check(err)

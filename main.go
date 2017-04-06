@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"flag"
 	"fmt"
 	"io/ioutil"
@@ -23,11 +24,15 @@ func main() {
 	fmt.Fprintln(os.Stderr, "bytes:", len(in))
 
 	if len(in) > 0 {
-		decoded, err := decoder.Decode(in)
-		check(err)
+		if bytes.EqualFold(in[:4], []byte("null")) {
+			fmt.Println("null")
+		} else {
+			decoded, err := decoder.Decode(in)
+			check(err)
 
-		rec := decoded.(*avro.GenericRecord)
-		fmt.Println(rec)
+			rec := decoded.(*avro.GenericRecord)
+			fmt.Println(rec)
+		}
 	}
 }
 
